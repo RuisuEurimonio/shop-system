@@ -56,6 +56,10 @@ public class Sistema extends javax.swing.JFrame {
         txtIdCliente.setVisible(false);
         AutoCompleteDecorator.decorate(cbxProveedorPro);
         proDAO.ConsultarProveedor(cbxProveedorPro);
+        txtIdVenta.setVisible(false);
+        txtIdPro.setVisible(false);
+        txtIdProveedor.setVisible(false);
+        txtIdProVenta.setVisible(false);
     }
 
     public void ListarCliente() {
@@ -445,6 +449,12 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         txtRazonCV.setText("jTextField1");
+
+        txtIdProVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdProVentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1295,7 +1305,7 @@ public class Sistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
-        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
 
     private void txtCodigoVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoVentaActionPerformed
@@ -1616,7 +1626,7 @@ public class Sistema extends javax.swing.JFrame {
                 int stock = Integer.parseInt(txtStockDisponible.getText());
                 if(stock >= cant){
                     item = item + 1;
-                    modelo = (DefaultTableModel) tableVenta.getModel();
+                    DefaultTableModel modelo2 = (DefaultTableModel) tableVenta.getModel();
                     for (int i = 0; i < tableVenta.getRowCount(); i++) {
                         if (tableVenta.getValueAt(i, 1).equals(txtDescripcionVenta.getText())){
                             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El producto ya esta registrado </h1></html>", "Error al ingresar producto", JOptionPane.PLAIN_MESSAGE, alert);
@@ -1636,8 +1646,8 @@ public class Sistema extends javax.swing.JFrame {
                     object[2] = lista.get(3);
                     object[3] = lista.get(4);
                     object[4] = lista.get(5);
-                    modelo.addRow(object);
-                    tableVenta.setModel(modelo);
+                    modelo2.addRow(object);
+                    tableVenta.setModel(modelo2);
                     totalPagar();
                     limpiarVenta();
                     txtCodigoVenta.requestFocus();
@@ -1693,6 +1703,10 @@ public class Sistema extends javax.swing.JFrame {
         registrarVenta();
         registrarDetalle();
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
+
+    private void txtIdProVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdProVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdProVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1888,6 +1902,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPrecioVenta.setText("");
         txtCantidadVenta.setText("");
         txtStockDisponible.setText("");
+        txtIdVenta.setText("");
     }
     
     private void registrarVenta(){
@@ -1901,16 +1916,17 @@ public class Sistema extends javax.swing.JFrame {
     }
     
     public void registrarDetalle(){
+        int id = ventaDao.idVenta();
         for (int i = 0 ; i < tableVenta.getRowCount() ; i++){
              String cod = tableVenta.getValueAt(i, 0).toString();
              int cant = Integer.parseInt(tableVenta.getValueAt(i, 2).toString());
              double precio = Double.parseDouble(tableVenta.getValueAt(i, 3).toString());
-             int id = 1;
              detalle.setCod_pro(cod);
              detalle.setCantidad(cant);
              detalle.setPrecio(precio);
-             detalle.setId(id);
+             detalle.setId_venta(id);
              ventaDao.RegistrarDetalle(detalle);
+             System.out.println(id + "3");
         }
     }
 }

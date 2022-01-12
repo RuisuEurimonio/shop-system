@@ -7,6 +7,7 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -18,7 +19,26 @@ public class VentaDao {
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement ps;
+    ResultSet rs;
     int r;
+    
+    public int idVenta(){
+        int id = 0;
+        String sql = "SELECT MAX(id) FROM ventas";
+        System.out.println(id + "1");
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                id = rs.getInt(1);
+                System.out.println(id + "2");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: "+ e.toString());
+        }
+        return id;
+    }
     
     public int RegistrarVenta(Venta venta){
         String sql = "INSERT INTO ventas (cliente, vendedor, total) VALUES (?,?,?)";
