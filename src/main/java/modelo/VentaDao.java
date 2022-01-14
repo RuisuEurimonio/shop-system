@@ -25,14 +25,12 @@ public class VentaDao {
     public int idVenta(){
         int id = 0;
         String sql = "SELECT MAX(id) FROM ventas";
-        System.out.println(id + "1");
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             if (rs.next()){
                 id = rs.getInt(1);
-                System.out.println(id + "2");
             }
         } catch (SQLException e) {
             System.out.println("Error: "+ e.toString());
@@ -81,6 +79,21 @@ public class VentaDao {
             }
         }
         return r;
+    }
+    
+    public boolean ActualizarStock(int cant, String cod){
+        String sql="UPDATE productos SET stock = ? WHERE codigo = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cant);
+            ps.setString(2, cod);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: "+e.toString());
+            return false;
+        }
     }
     
 }

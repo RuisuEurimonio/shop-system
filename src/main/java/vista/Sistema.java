@@ -44,6 +44,7 @@ public class Sistema extends javax.swing.JFrame {
     Venta venta = new Venta();
     VentaDao ventaDao = new VentaDao();
     Detalle detalle = new Detalle();
+    DefaultTableModel modelo2 = new DefaultTableModel();
     int item;
     Double totalPagar = 0.00;
 
@@ -1626,7 +1627,7 @@ public class Sistema extends javax.swing.JFrame {
                 int stock = Integer.parseInt(txtStockDisponible.getText());
                 if(stock >= cant){
                     item = item + 1;
-                    DefaultTableModel modelo2 = (DefaultTableModel) tableVenta.getModel();
+                    modelo2 = (DefaultTableModel) tableVenta.getModel();
                     for (int i = 0; i < tableVenta.getRowCount(); i++) {
                         if (tableVenta.getValueAt(i, 1).equals(txtDescripcionVenta.getText())){
                             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El producto ya esta registrado </h1></html>", "Error al ingresar producto", JOptionPane.PLAIN_MESSAGE, alert);
@@ -1702,6 +1703,10 @@ public class Sistema extends javax.swing.JFrame {
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         registrarVenta();
         registrarDetalle();
+        ActualizarStock();
+        LimpiarNuevaVenta();
+        LimpiarClienteVenta();
+        JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Venta generada. </h1></html>", "Nueva venta", JOptionPane.PLAIN_MESSAGE, ok);
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void txtIdProVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdProVentaActionPerformed
@@ -1915,7 +1920,7 @@ public class Sistema extends javax.swing.JFrame {
         ventaDao.RegistrarVenta(venta);
     }
     
-    public void registrarDetalle(){
+    private void registrarDetalle(){
         int id = ventaDao.idVenta();
         for (int i = 0 ; i < tableVenta.getRowCount() ; i++){
              String cod = tableVenta.getValueAt(i, 0).toString();
@@ -1926,8 +1931,33 @@ public class Sistema extends javax.swing.JFrame {
              detalle.setPrecio(precio);
              detalle.setId_venta(id);
              ventaDao.RegistrarDetalle(detalle);
-             System.out.println(id + "3");
         }
+    }
+    
+    private void ActualizarStock(){
+        for(int i = 0 ; i < tableVenta.getRowCount() ; i++){
+            String codigo = tableVenta.getValueAt(i, 0).toString();
+            int cant = Integer.parseInt(tableVenta.getValueAt(i, 2).toString());
+            pro = proDAO.BuscarPro(codigo);
+            int stockActual = pro.getStock()-cant;
+            ventaDao.ActualizarStock(stockActual, codigo);
+        }
+    }
+    
+    private void LimpiarNuevaVenta(){
+        modelo2 = (DefaultTableModel) tableVenta.getModel();
+        int filas = tableVenta.getRowCount();
+        for(int i = 0 ; i < filas ; i++){
+            modelo2.removeRow(0);
+        }
+    }
+    
+    private void LimpiarClienteVenta(){
+        txtRucVenta.setText("");
+        txtNombreClienteVenta.setText("");
+        txtTelefonoCV.setText("");
+        txtDireccionCV.setText("");
+        txtRazonCV.setText("");
     }
 }
 
