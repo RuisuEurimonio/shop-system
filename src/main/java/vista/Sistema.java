@@ -5,8 +5,21 @@
  */
 package vista;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import reportes.Excel;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -61,6 +74,7 @@ public class Sistema extends javax.swing.JFrame {
         txtIdPro.setVisible(false);
         txtIdProveedor.setVisible(false);
         txtIdProVenta.setVisible(false);
+        pdf();
     }
 
     public void ListarCliente() {
@@ -1958,6 +1972,50 @@ public class Sistema extends javax.swing.JFrame {
         txtTelefonoCV.setText("");
         txtDireccionCV.setText("");
         txtRazonCV.setText("");
+    }
+    
+    private void pdf(){
+        try {
+            FileOutputStream archivo;
+            File file = new File("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\java\\pdf\\venta.pdf");
+            archivo = new FileOutputStream(file);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            Image img = Image.getInstance("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\logo.png");
+            
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.PINK);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Factura #1\n"+"Fecha: "+ new SimpleDateFormat("dd-mm-yyyy").format(date)+"\n\n");
+            
+            PdfPTable Encabezado = new PdfPTable(4);
+            Encabezado.setWidthPercentage(100);
+            Encabezado.getDefaultCell().setBorder(0);
+            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
+            Encabezado.setWidths(ColumnaEncabezado);
+            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            Encabezado.addCell(img);
+            
+            String ruc = "1001299664";
+            String nom = "Ruisu Eurimonio";
+            String tel = "3132372576";
+            String dir = "Bogota Colombia";
+            String ra = "RuisuXaki";
+            
+            Encabezado.addCell("");
+            Encabezado.addCell("CC: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon social: " + ra);
+            Encabezado.addCell(fecha);
+            
+            doc.add(Encabezado);
+            
+            doc.close();
+            archivo.close();
+        } catch (Exception e) {
+            System.out.println("Error: "+e.toString());
+        }
     }
 }
 
