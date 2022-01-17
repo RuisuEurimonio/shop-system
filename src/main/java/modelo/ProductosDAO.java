@@ -140,4 +140,25 @@ public class ProductosDAO {
         }
         return producto;
     }
+    
+        public Empresa BuscarDatos (){
+        Empresa empresa = new Empresa();
+        String sql = "SELECT * FROM config";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                empresa.setId((rs.getInt("id")));
+                empresa.setRuc(rs.getString("ruc"));
+                empresa.setNombre(rs.getString("nombre"));
+                empresa.setTelefono(rs.getLong("telefono"));
+                empresa.setDireccion(rs.getString("direccion"));
+                empresa.setRazon(rs.getString("razon"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: "+e.toString());
+        }
+        return empresa;
+    }
 }
