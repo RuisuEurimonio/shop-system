@@ -18,13 +18,13 @@ import javax.swing.JComboBox;
  * @author Usuario
  */
 public class ProductosDAO {
-    
+
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement ps;
     ResultSet rs;
-    
-    public boolean RegistrarProductos(Productos pro){
+
+    public boolean RegistrarProductos(Productos pro) {
         String sql = "INSERT INTO productos (codigo, nombre, proveedor, stock, precio) VALUES (?,?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -41,29 +41,29 @@ public class ProductosDAO {
             return false;
         }
     }
-    
-    public void ConsultarProveedor(JComboBox proveedorPro){
+
+    public void ConsultarProveedor(JComboBox proveedorPro) {
         String sql = "SELECT nombre FROM proveedor";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 proveedorPro.addItem(rs.getString("nombre"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
     }
-    
-    public List ListarCliente(){
+
+    public List ListarCliente() {
         List<Productos> listaPro = new ArrayList();
         String sql = "SELECT * FROM productos";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Productos pro = new Productos();
                 pro.setId(rs.getInt("id"));
                 pro.setCodigo(rs.getString("codigo"));
@@ -78,7 +78,7 @@ public class ProductosDAO {
         }
         return listaPro;
     }
-    
+
     public boolean EliminarProducto(int id) {
         String sql = "DELETE FROM productos WHERE id = ?";
         try {
@@ -89,7 +89,7 @@ public class ProductosDAO {
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
-        }finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException e) {
@@ -97,8 +97,8 @@ public class ProductosDAO {
             }
         }
     }
-    
-    public boolean ModificarProducto(Productos pro){
+
+    public boolean ModificarProducto(Productos pro) {
         String sql = "UPDATE productos SET codigo = ?, nombre = ?, proveedor = ?, stock = ?, precio = ? WHERE id = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -121,8 +121,8 @@ public class ProductosDAO {
             }
         }
     }
-    
-    public Productos BuscarPro (String cod){
+
+    public Productos BuscarPro(String cod) {
         Productos producto = new Productos();
         String sql = "SELECT * FROM productos WHERE codigo = ?";
         try {
@@ -130,25 +130,25 @@ public class ProductosDAO {
             ps = con.prepareStatement(sql);
             ps.setString(1, cod);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 producto.setNombre((rs.getString("nombre")));
                 producto.setPrecio(rs.getDouble("precio"));
                 producto.setStock(rs.getInt("stock"));
             }
         } catch (SQLException e) {
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: " + e.toString());
         }
         return producto;
     }
-    
-        public Empresa BuscarDatos (){
+
+    public Empresa BuscarDatos() {
         Empresa empresa = new Empresa();
         String sql = "SELECT * FROM config";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 empresa.setId((rs.getInt("id")));
                 empresa.setRuc(rs.getString("ruc"));
                 empresa.setNombre(rs.getString("nombre"));
@@ -157,8 +157,32 @@ public class ProductosDAO {
                 empresa.setRazon(rs.getString("razon"));
             }
         } catch (SQLException e) {
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: " + e.toString());
         }
         return empresa;
+    }
+
+    public boolean ModificarEmpresa(Empresa empresa) {
+        String sql = "UPDATE config SET ruc = ?, nombre = ?, telefono = ?, direccion = ?, razon = ? WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, empresa.getRuc());
+            ps.setString(2, empresa.getNombre());
+            ps.setLong(3, empresa.getTelefono());
+            ps.setString(4, empresa.getDireccion());
+            ps.setString(5, empresa.getRazon());
+            ps.setInt(6, empresa.getId());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
     }
 }
