@@ -39,10 +39,10 @@ public class Excel {
  
         Workbook book = new XSSFWorkbook();
         Sheet sheet = book.createSheet("Productos");
-        ImageIcon ok = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\okC.png"); // NOI18N
+        ImageIcon ok = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\resources\\okC.png"); // NOI18N
  
         try {
-            InputStream is = new FileInputStream("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\logo.png");
+            InputStream is = new FileInputStream("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\resources\\logo.png");
             byte[] bytes = IOUtils.toByteArray(is);
             int imgIndex = book.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
             is.close();

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -94,6 +96,27 @@ public class VentaDao {
             System.out.println("Error: "+e.toString());
             return false;
         }
+    }
+    
+        public List ListarVentas() {
+        List<Venta> listaVentas = new ArrayList();
+        String sql = "SELECT * FROM ventas";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setId(rs.getLong("id"));
+                venta.setVendedor(rs.getString("vendedor"));
+                venta.setCliente(rs.getString("cliente"));
+                venta.setTotal(rs.getDouble("total"));
+                listaVentas.add(venta);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return listaVentas;
     }
     
 }

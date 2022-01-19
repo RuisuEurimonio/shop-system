@@ -49,10 +49,10 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class Sistema extends javax.swing.JFrame {
 
-    ImageIcon alert = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\alertC.png"); // NOI18N
-    ImageIcon ok = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\okC.png"); // NOI18N
-    ImageIcon error = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\errorC.png"); // NOI18N
-    ImageIcon question = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\questionC.png"); // NOI18N
+    ImageIcon alert = new javax.swing.ImageIcon(getClass().getResource("/alertC.png")); // NOI18N
+    ImageIcon ok = new javax.swing.ImageIcon(getClass().getResource("/okC.png")); // NOI18N
+    ImageIcon error = new javax.swing.ImageIcon(getClass().getResource("/errorC.png")); // NOI18N
+    ImageIcon question = new javax.swing.ImageIcon(getClass().getResource("/questionC.png")); // NOI18N
     
     Cliente cl = new Cliente();
     ClienteDAO client = new ClienteDAO();
@@ -151,6 +151,20 @@ public class Sistema extends javax.swing.JFrame {
             i = i - 1;
         }
     }
+    
+    public void ListarVentas(){
+        List<Venta> listaVenta = ventaDao.ListarVentas();
+        modelo = (DefaultTableModel) tableVentas.getModel();
+        Object[] ob = new Object[4];
+        for (int i = 0 ; i < listaVenta.size() ; i++){
+            ob[0] = listaVenta.get(i).getId();
+            ob[1] = listaVenta.get(i).getCliente();
+            ob[2] = listaVenta.get(i).getVendedor();
+            ob[3] = listaVenta.get(i).getTotal();
+            modelo.addRow(ob);
+        }
+        tableVentas.setModel(modelo);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,7 +184,7 @@ public class Sistema extends javax.swing.JFrame {
         btnConfig = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        LabelVendedor = new javax.swing.JLabel();
+        labelVendedor = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -283,7 +297,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnNuevaVenta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnNuevaVenta.setForeground(new java.awt.Color(0, 0, 0));
-        btnNuevaVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\nVenta.png")); // NOI18N
+        btnNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nVenta.png"))); // NOI18N
         btnNuevaVenta.setText("Nueva Venta");
         btnNuevaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +307,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnClientes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnClientes.setForeground(new java.awt.Color(0, 0, 0));
-        btnClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\clientes.png")); // NOI18N
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clientes.png"))); // NOI18N
         btnClientes.setText("Clientes");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +317,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnProveedor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnProveedor.setForeground(new java.awt.Color(0, 0, 0));
-        btnProveedor.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\proveedor.png")); // NOI18N
+        btnProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proveedor.png"))); // NOI18N
         btnProveedor.setText("Proveedor");
         btnProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,7 +327,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnProductos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnProductos.setForeground(new java.awt.Color(0, 0, 0));
-        btnProductos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\producto.png")); // NOI18N
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/producto.png"))); // NOI18N
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +337,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnVentas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnVentas.setForeground(new java.awt.Color(0, 0, 0));
-        btnVentas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\ventas.png")); // NOI18N
+        btnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventas.png"))); // NOI18N
         btnVentas.setText("Ventas");
         btnVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,7 +347,7 @@ public class Sistema extends javax.swing.JFrame {
 
         btnConfig.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnConfig.setForeground(new java.awt.Color(0, 0, 0));
-        btnConfig.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\config.png")); // NOI18N
+        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/config.png"))); // NOI18N
         btnConfig.setText("Config");
         btnConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +358,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\logoVenta.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoVenta.png"))); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -358,7 +372,7 @@ public class Sistema extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
         );
 
-        LabelVendedor.setText("RuisuXaki");
+        labelVendedor.setText("ruisu");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -371,10 +385,10 @@ public class Sistema extends javax.swing.JFrame {
             .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(LabelVendedor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelVendedor)
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,9 +406,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(btnVentas)
                 .addGap(18, 18, 18)
                 .addComponent(btnConfig)
-                .addGap(18, 18, 18)
-                .addComponent(LabelVendedor)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelVendedor)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 640));
@@ -488,19 +502,19 @@ public class Sistema extends javax.swing.JFrame {
 
         txtNombreClienteVenta.setEditable(false);
 
-        btnGenerarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\imprimir.png")); // NOI18N
+        btnGenerarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imprimir.png"))); // NOI18N
         btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarVentaActionPerformed(evt);
             }
         });
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\totalpagar.png")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/totalpagar.png"))); // NOI18N
         jLabel11.setText("TOTAL A PAGAR");
 
         labelTotal.setText("----------");
 
-        btnEliminarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\cancelar.png")); // NOI18N
+        btnEliminarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar.png"))); // NOI18N
         btnEliminarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarVentaActionPerformed(evt);
@@ -689,7 +703,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnGuardarCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\guardar.png")); // NOI18N
+        btnGuardarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -697,7 +711,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnEditarCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\actualizar.png")); // NOI18N
+        btnEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
         btnEditarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -705,7 +719,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\cancelar.png")); // NOI18N
+        btnEliminarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar.png"))); // NOI18N
         btnEliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -713,7 +727,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnNuevoCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\nuevo.png")); // NOI18N
+        btnNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
         btnNuevoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -906,28 +920,28 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnGuardarProveedor.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\guardar.png")); // NOI18N
+        btnGuardarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnGuardarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarProveedorActionPerformed(evt);
             }
         });
 
-        btnEditarProveedor.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\actualizar.png")); // NOI18N
+        btnEditarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
         btnEditarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarProveedorActionPerformed(evt);
             }
         });
 
-        txtNuevoProveedor.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\nuevo.png")); // NOI18N
+        txtNuevoProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
         txtNuevoProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNuevoProveedorActionPerformed(evt);
             }
         });
 
-        txtEliminarProveedor.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\cancelar.png")); // NOI18N
+        txtEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar.png"))); // NOI18N
         txtEliminarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEliminarProveedorActionPerformed(evt);
@@ -1101,35 +1115,35 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnGuardarPro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\guardar.png")); // NOI18N
+        btnGuardarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnGuardarPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarProActionPerformed(evt);
             }
         });
 
-        btnEditarPro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\actualizar.png")); // NOI18N
+        btnEditarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
         btnEditarPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarProActionPerformed(evt);
             }
         });
 
-        btnEliminarPro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\cancelar.png")); // NOI18N
+        btnEliminarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar.png"))); // NOI18N
         btnEliminarPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarProActionPerformed(evt);
             }
         });
 
-        btnNuevoPro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\nuevo.png")); // NOI18N
+        btnNuevoPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
         btnNuevoPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoProActionPerformed(evt);
             }
         });
 
-        btnExcelPro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\excel.png")); // NOI18N
+        btnExcelPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excel.png"))); // NOI18N
         btnExcelPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcelProActionPerformed(evt);
@@ -1254,7 +1268,12 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab2", jPanel3);
 
-        btnPdfVentas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\pdf.png")); // NOI18N
+        btnPdfVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pdf.png"))); // NOI18N
+        btnPdfVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPdfVentasActionPerformed(evt);
+            }
+        });
 
         txtIdVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1276,6 +1295,11 @@ public class Sistema extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableVentasMouseClicked(evt);
             }
         });
         jScrollPane5.setViewportView(tableVentas);
@@ -1365,7 +1389,7 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnActualizarConfig.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnActualizarConfig.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\actualizar.png")); // NOI18N
+        btnActualizarConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
         btnActualizarConfig.setText("ACTUALIZAR.");
         btnActualizarConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1373,7 +1397,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jLabel33.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\Girl.png")); // NOI18N
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Girl.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1451,9 +1475,8 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtRucConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTelefonoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
@@ -1467,8 +1490,8 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtRazonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDireccionConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
-                        .addComponent(btnActualizarConfig)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnActualizarConfig)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab4", jPanel5);
@@ -1477,7 +1500,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel27.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\encabezado.png")); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/encabezado.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1797,6 +1820,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnExcelProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelProActionPerformed
         Excel.reporte();
+        JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Abriendo el archivo. </h1></html>", "Reporte excel", JOptionPane.PLAIN_MESSAGE, ok);
     }//GEN-LAST:event_btnExcelProActionPerformed
 
     private void txtCodigoVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoVentaKeyPressed
@@ -1932,6 +1956,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         jTabbedPane1.setSelectedIndex(4);
+        LimpiarTable();
+        ListarVentas();
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void txtCodigoVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoVentaKeyTyped
@@ -2026,6 +2052,21 @@ public class Sistema extends javax.swing.JFrame {
         event.textKeyPress(evt);
     }//GEN-LAST:event_txtRazonConfigKeyTyped
 
+    private void btnPdfVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfVentasActionPerformed
+        try{
+            int id = Integer.parseInt(txtIdVenta.getText());
+            File file = new File("src/main/java/pdf/venta"+id+".pdf");
+            Desktop.getDesktop().open(file);
+        } catch(IOException | NumberFormatException e){
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_btnPdfVentasActionPerformed
+
+    private void tableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVentasMouseClicked
+        int fila = tableVentas.rowAtPoint(evt.getPoint());
+        txtIdVenta.setText(tableVentas.getValueAt(fila, 0).toString());
+    }//GEN-LAST:event_tableVentasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2062,7 +2103,6 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelVendedor;
     private javax.swing.JButton btnActualizarConfig;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnConfig;
@@ -2134,6 +2174,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelTotal;
+    private javax.swing.JLabel labelVendedor;
     private javax.swing.JTable tableCliente;
     private javax.swing.JTable tableProducto;
     private javax.swing.JTable tableProveedor;
@@ -2226,7 +2267,7 @@ public class Sistema extends javax.swing.JFrame {
     
     private void registrarVenta(){
         String cliente = txtNombreClienteVenta.getText();
-        String vendedor = LabelVendedor.getText();
+        String vendedor = labelVendedor.getText();
         Double monto = totalPagar;
         venta.setCliente(cliente);
         venta.setVendedor(vendedor);
@@ -2278,12 +2319,12 @@ public class Sistema extends javax.swing.JFrame {
         try {
             int id = ventaDao.idVenta();
             FileOutputStream archivo;
-            File file = new File("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\java\\pdf\\venta"+id+".pdf");
+            File file = new File("src/main/java/pdf/venta"+id+".pdf");
             archivo = new FileOutputStream(file);
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
             doc.open();
-            Image img = Image.getInstance("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\other resources\\main\\resources\\img\\logo.png");
+            Image img = Image.getInstance("src/main/resources/logo.png");
             
             Paragraph fecha = new Paragraph();
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.PINK);
@@ -2410,5 +2451,10 @@ public class Sistema extends javax.swing.JFrame {
             System.out.println("Error: "+e.toString());
         }
     }
+
+    public ImageIcon getOk() {
+        return ok;
+    }
+    
 }
 
