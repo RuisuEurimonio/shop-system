@@ -88,12 +88,12 @@
                   <Component id="jLabel2" min="-2" pref="114" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="27" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtCorreo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtCorreo" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtPass" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtPass" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -110,7 +110,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Documents\programacion\java\Personal\RuxStore\other resources\main\resources\img\IniciarSesion.png"/>
+              <Image iconType="3" name="/IniciarSesion.png"/>
             </Property>
           </Properties>
         </Component>
@@ -207,7 +207,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Usuario\Documents\programacion\java\Personal\RuxStore\other resources\main\resources\img\facebook1.png"/>
+                  <Image iconType="3" name="/facebook1.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Siguenos en "/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -245,7 +245,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Usuario\Documents\programacion\java\Personal\RuxStore\other resources\main\resources\img\instagram1.png"/>
+                  <Image iconType="3" name="/instagram1.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Siguenos en "/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -280,7 +280,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="237" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
@@ -298,7 +298,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Documents\programacion\java\Personal\RuxStore\other resources\main\resources\img\logo.png"/>
+              <Image iconType="3" name="/logo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x412;&#x441;&#x435; &#x41f;&#x440;&#x438;&#x432;&#x435;&#x442;!!!"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -310,7 +310,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Usuario\Documents\programacion\java\Personal\RuxStore\other resources\main\resources\img\login.png"/>
+          <Image iconType="3" name="/login.png"/>
         </Property>
       </Properties>
       <Constraints>
