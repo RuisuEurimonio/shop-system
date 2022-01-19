@@ -1,4 +1,5 @@
 package reportes;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -35,14 +35,21 @@ import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
 public class Excel {
+    /**
+     * I have some warnings with this method, but this method work ok;
+     * WARNING: An illegal reflective access operation has occurred
+        WARNING: Illegal reflective access by org.apache.poi.util.DocumentHelper (file:/C:/Users/Usuario/.m2/repository/org/apache/poi/poi-ooxml/3.17/poi-ooxml-3.17.jar) to method com.sun.org.apache.xerces.internal.util.SecurityManager.setEntityExpansionLimit(int)
+        WARNING: Please consider reporting this to the maintainers of org.apache.poi.util.DocumentHelper
+        WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+        WARNING: All illegal access operations will be denied in a future release
+     */
     public static void reporte() {
- 
+        
         Workbook book = new XSSFWorkbook();
         Sheet sheet = book.createSheet("Productos");
-        ImageIcon ok = new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\resources\\okC.png"); // NOI18N
  
         try {
-            InputStream is = new FileInputStream("C:\\Users\\Usuario\\Documents\\programacion\\java\\Personal\\RuxStore\\src\\main\\resources\\logo.png");
+            InputStream is = new FileInputStream("src/main/resources/logo.png");
             byte[] bytes = IOUtils.toByteArray(is);
             int imgIndex = book.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
             is.close();
@@ -142,7 +149,6 @@ public class Excel {
             book.write(fileOut);
             fileOut.close();
             Desktop.getDesktop().open(file);
-            JOptionPane.showMessageDialog(null, "<html><h1 style='font-size:30px;color:9d3be1'>Reporte generado</h1></html>","Reporte",JOptionPane.PLAIN_MESSAGE, ok);
  
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);

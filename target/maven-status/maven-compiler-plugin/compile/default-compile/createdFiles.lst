@@ -29,13 +29,13 @@ vista\Sistema$49.class
 vista\Sistema$31.class
 vista\Sistema$41.class
 vista\Sistema$6.class
-.netbeans_automatic_build
 vista\Sistema$26.class
 vista\Sistema$7.class
 vista\Sistema$14.class
 vista\Sistema$54.class
 modelo\Detalle.class
 vista\Sistema$37.class
+vista\Login$4.class
 vista\Sistema$42.class
 vista\Sistema$20.class
 vista\Sistema$30.class
@@ -55,6 +55,7 @@ vista\Sistema$66.class
 modelo\Conexion.class
 vista\Sistema$1.class
 reportes\Excel.class
+vista\Login$5.class
 vista\Sistema$46.class
 vista\Sistema$56.class
 vista\Sistema$36.class

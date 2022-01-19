@@ -5,6 +5,8 @@
  */
 package vista;
 
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.LoginDAO;
 import modelo.LoginModel;
@@ -17,6 +19,11 @@ public class Login extends javax.swing.JFrame {
 
     LoginModel lg = new LoginModel();
     LoginDAO login = new LoginDAO();
+    
+    ImageIcon alert = new javax.swing.ImageIcon(getClass().getResource("/alertC.png")); // NOI18N
+    ImageIcon ok = new javax.swing.ImageIcon(getClass().getResource("/okC.png")); // NOI18N
+    ImageIcon error = new javax.swing.ImageIcon(getClass().getResource("/errorC.png")); // NOI18N
+    ImageIcon question = new javax.swing.ImageIcon(getClass().getResource("/questionC.png")); // NOI18N
     
     /**
      * Creates new form Login
@@ -36,8 +43,10 @@ public class Login extends javax.swing.JFrame {
                 sis.setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Correo o contraseña incorrecta");
+                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Usuario o contraseña incorrectos. </h1></html>", "Iniciar sesión.", JOptionPane.PLAIN_MESSAGE, alert);
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Hay campos vacíos. </h1></html>", "Iniciar sesión. ", JOptionPane.PLAIN_MESSAGE, alert);
         }
     }
 
@@ -84,10 +93,21 @@ public class Login extends javax.swing.JFrame {
                 txtCorreoActionPerformed(evt);
             }
         });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyPressed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña");
+
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -205,7 +225,7 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(192, 16, 232));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/girlLogin.png"))); // NOI18N
         jLabel6.setText("Все Привет!!!");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -215,16 +235,15 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 208, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(23, 23, 23))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 590));
@@ -242,6 +261,18 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         validar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validar();
+        }
+    }//GEN-LAST:event_txtPassKeyPressed
+
+    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validar();
+        }
+    }//GEN-LAST:event_txtCorreoKeyPressed
 
     /**
      * @param args the command line arguments
