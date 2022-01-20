@@ -41,13 +41,14 @@ public class VentaDao {
     }
     
     public int RegistrarVenta(Venta venta){
-        String sql = "INSERT INTO ventas (cliente, vendedor, total) VALUES (?,?,?)";
+        String sql = "INSERT INTO ventas (cliente, vendedor, total, fecha) VALUES (?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, venta.getCliente());
             ps.setString(2, venta.getVendedor());
             ps.setDouble(3, venta.getTotal());
+            ps.setString(4, venta.getDate());
             ps.execute();
         } catch (Exception e) {
             System.out.println("Error: "+e.toString());

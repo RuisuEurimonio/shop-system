@@ -15,18 +15,30 @@ public class Venta {
     private String cliente;
     private String vendedor;
     private double total;
+    private String date;
     
     public Venta(){
         
     }
 
-    public Venta(Long id, String cliente, String vendedor, double total) {
+    public Venta(Long id, String cliente, String vendedor, double total, String date) {
         this.id = id;
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.total = total;
+        this.date = date;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }
