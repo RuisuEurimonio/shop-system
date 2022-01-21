@@ -35,6 +35,7 @@ import modelo.ClienteDAO;
 import modelo.Detalle;
 import modelo.Empresa;
 import modelo.Events;
+import modelo.LoginModel;
 import modelo.Productos;
 import modelo.ProductosDAO;
 import modelo.Proveedor;
@@ -54,7 +55,7 @@ public class Sistema extends javax.swing.JFrame {
     ImageIcon ok = new javax.swing.ImageIcon(getClass().getResource("/okC.png")); // NOI18N
     ImageIcon error = new javax.swing.ImageIcon(getClass().getResource("/errorC.png")); // NOI18N
     ImageIcon question = new javax.swing.ImageIcon(getClass().getResource("/questionC.png")); // NOI18N
-    
+
     Date dateVenta = new Date();
     String fechaNow = new SimpleDateFormat("dd-MM-yyyy").format(dateVenta);
     Cliente cl = new Cliente();
@@ -78,6 +79,10 @@ public class Sistema extends javax.swing.JFrame {
      */
     public Sistema() {
         initComponents();
+    }
+
+    public Sistema(LoginModel login) {
+        initComponents();
         this.setLocationRelativeTo(null);
         txtIdCliente.setVisible(false);
         AutoCompleteDecorator.decorate(cbxProveedorPro);
@@ -88,6 +93,14 @@ public class Sistema extends javax.swing.JFrame {
         txtIdProVenta.setVisible(false);
         txtIdConfig.setVisible(false);
         ListarConfig();
+        if (login.getRol().equals("Asistente")) {
+            btnProductos.setEnabled(false);
+            btnProveedor.setEnabled(false);
+            labelVendedor.setText(login.getNombre());
+            btnConfig.setEnabled(false);
+        } else {
+            labelVendedor.setText(login.getNombre());
+        }
     }
 
     public void ListarCliente() {
@@ -121,12 +134,12 @@ public class Sistema extends javax.swing.JFrame {
         }
         tableProveedor.setModel(modelo);
     }
-    
-    public void ListarProductos(){
+
+    public void ListarProductos() {
         List<Productos> listaPro = proDAO.ListarCliente();
         modelo = (DefaultTableModel) tableProducto.getModel();
         Object[] ob = new Object[6];
-        for (int i = 0 ; i < listaPro.size() ; i++){
+        for (int i = 0; i < listaPro.size(); i++) {
             ob[0] = listaPro.get(i).getId();
             ob[1] = listaPro.get(i).getCodigo();
             ob[2] = listaPro.get(i).getNombre();
@@ -137,15 +150,15 @@ public class Sistema extends javax.swing.JFrame {
         }
         tableProducto.setModel(modelo);
     }
-    
-    public void ListarConfig(){
+
+    public void ListarConfig() {
         empresa = proDAO.BuscarDatos();
-        txtIdConfig.setText(""+empresa.getId());
-        txtRucConfig.setText(""+empresa.getRuc());
-        txtNombreConfig.setText(""+empresa.getNombre());
-        txtTelefonoConfig.setText(""+empresa.getTelefono());
-        txtDireccionConfig.setText(""+empresa.getDireccion());
-        txtRazonConfig.setText(""+empresa.getRazon());
+        txtIdConfig.setText("" + empresa.getId());
+        txtRucConfig.setText("" + empresa.getRuc());
+        txtNombreConfig.setText("" + empresa.getNombre());
+        txtTelefonoConfig.setText("" + empresa.getTelefono());
+        txtDireccionConfig.setText("" + empresa.getDireccion());
+        txtRazonConfig.setText("" + empresa.getRazon());
     }
 
     public void LimpiarTable() {
@@ -154,12 +167,12 @@ public class Sistema extends javax.swing.JFrame {
             i = i - 1;
         }
     }
-    
-    public void ListarVentas(){
+
+    public void ListarVentas() {
         List<Venta> listaVenta = ventaDao.ListarVentas();
         modelo = (DefaultTableModel) tableVentas.getModel();
         Object[] ob = new Object[4];
-        for (int i = 0 ; i < listaVenta.size() ; i++){
+        for (int i = 0; i < listaVenta.size(); i++) {
             ob[0] = listaVenta.get(i).getId();
             ob[1] = listaVenta.get(i).getCliente();
             ob[2] = listaVenta.get(i).getVendedor();
@@ -293,6 +306,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         txtIdConfig = new javax.swing.JTextField();
+        btnRegister = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
 
@@ -394,7 +408,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelVendedor)
-                .addGap(71, 71, 71))
+                .addGap(95, 95, 95))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1442,18 +1456,28 @@ public class Sistema extends javax.swing.JFrame {
 
         txtIdConfig.setToolTipText("");
 
+        btnRegister.setBackground(new java.awt.Color(51, 102, 255));
+        btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegister.setText("Registrar usuarios.");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnActualizarConfig)
                         .addGap(55, 55, 55))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(txtIdConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1517,7 +1541,9 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtRazonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDireccionConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
-                        .addComponent(btnActualizarConfig)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnActualizarConfig)
+                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1578,17 +1604,17 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRucProveedorActionPerformed
 
     private void txtEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarProveedorActionPerformed
-        if (!"".equals(txtIdProveedor.getText())){
+        if (!"".equals(txtIdProveedor.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> ¿Esta seguro de eliminar este proveedor? </h1></html>", "Eliminar proveedor", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, question);
-            if (pregunta == 0){
-                int id = Integer.parseInt(txtIdProveedor.getText());              
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdProveedor.getText());
                 prDao.EliminarProveedor(id);
                 LimpiarTable();
                 LimpiarProveedor();
                 ListarProveedor();
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Proveedor eliminado. </h1></html>", " Eliminar proveedor", JOptionPane.PLAIN_MESSAGE, ok);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un proveedor</h1></html>", "Error al eliminar proveedor", JOptionPane.PLAIN_MESSAGE, alert);
         }
     }//GEN-LAST:event_txtEliminarProveedorActionPerformed
@@ -1644,21 +1670,21 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 
     private void btnActualizarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConfigActionPerformed
-        if (!"".equals(txtRucConfig.getText()) && !"".equals(txtNombreConfig.getText()) 
-                    && !"".equals(txtTelefonoConfig.getText()) && !"".equals(txtDireccionConfig.getText()) 
-                    && !"".equals(txtRazonConfig.getText())) {
-                empresa.setNombre(txtNombreConfig.getText());
-                empresa.setDireccion(txtDireccionConfig.getText());
-                empresa.setRazon(txtRazonConfig.getText());
-                empresa.setRuc(txtRucConfig.getText());
-                empresa.setId(Integer.parseInt(txtIdConfig.getText()));
-                empresa.setTelefono(Long.parseLong(txtTelefonoConfig.getText()));
-                proDAO.ModificarEmpresa(empresa);
-                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Datos de la empresa actualizados. </h1></html>", "Actualizar producto", JOptionPane.PLAIN_MESSAGE, ok);
-                ListarConfig();
-            } else {
-                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Existen campos vacios necesarios</h1></html>", "Actualizar producto", JOptionPane.PLAIN_MESSAGE, alert);
-            }
+        if (!"".equals(txtRucConfig.getText()) && !"".equals(txtNombreConfig.getText())
+                && !"".equals(txtTelefonoConfig.getText()) && !"".equals(txtDireccionConfig.getText())
+                && !"".equals(txtRazonConfig.getText())) {
+            empresa.setNombre(txtNombreConfig.getText());
+            empresa.setDireccion(txtDireccionConfig.getText());
+            empresa.setRazon(txtRazonConfig.getText());
+            empresa.setRuc(txtRucConfig.getText());
+            empresa.setId(Integer.parseInt(txtIdConfig.getText()));
+            empresa.setTelefono(Long.parseLong(txtTelefonoConfig.getText()));
+            proDAO.ModificarEmpresa(empresa);
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Datos de la empresa actualizados. </h1></html>", "Actualizar producto", JOptionPane.PLAIN_MESSAGE, ok);
+            ListarConfig();
+        } else {
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Existen campos vacios necesarios</h1></html>", "Actualizar producto", JOptionPane.PLAIN_MESSAGE, alert);
+        }
     }//GEN-LAST:event_btnActualizarConfigActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
@@ -1740,11 +1766,11 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tableProveedorMouseClicked
 
     private void btnEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProveedorActionPerformed
-        if ("".equals(txtIdProveedor.getText())){
+        if ("".equals(txtIdProveedor.getText())) {
             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un proveedor. </h1></html>", "Error al actualizar proveedor", JOptionPane.PLAIN_MESSAGE, alert);
-        }else{
-            if (!"".equals(txtRucProveedor.getText()) && !"".equals(txtNombreProveedor.getText()) 
-                    && !"".equals(txtTelefonoProveedor.getText()) && !"".equals(txtDireccionProveedor.getText()) 
+        } else {
+            if (!"".equals(txtRucProveedor.getText()) && !"".equals(txtNombreProveedor.getText())
+                    && !"".equals(txtTelefonoProveedor.getText()) && !"".equals(txtDireccionProveedor.getText())
                     && !"".equals(txtRazonProveedor.getText())) {
                 pr.setRuc(Long.parseLong(txtRucProveedor.getText()));
                 pr.setNombre(txtNombreProveedor.getText());
@@ -1757,7 +1783,7 @@ public class Sistema extends javax.swing.JFrame {
                 ListarProveedor();
                 LimpiarProveedor();
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Proveedor actualizado. </h1></html>", "Actualizar proveedor", JOptionPane.PLAIN_MESSAGE, ok);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Hay campos vacios. </h1></html>", "Error al actualizar proveedor", JOptionPane.PLAIN_MESSAGE, alert);
             }
         }
@@ -1770,17 +1796,17 @@ public class Sistema extends javax.swing.JFrame {
     private void btnGuardarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProActionPerformed
         if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(cbxProveedorPro.getSelectedItem())
                 && !"".equals(txtCantPro.getText()) && !"".equals(txtPrecioPro.getText())) {
-                pro.setCodigo(txtCodigoPro.getText());
-                pro.setNombre(txtDesPro.getText());
-                pro.setProveedor(cbxProveedorPro.getSelectedItem().toString());
-                pro.setStock(Integer.parseInt(txtCantPro.getText()));
-                pro.setPrecio(Double.parseDouble(txtPrecioPro.getText()));
-                proDAO.RegistrarProductos(pro);
-                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Se ha guardado el producto. </h1></html>", "Guardar producto", JOptionPane.PLAIN_MESSAGE, ok);
-                LimpiarTable();
-                ListarProductos();
-                LimpiarProducto();
-        }else{
+            pro.setCodigo(txtCodigoPro.getText());
+            pro.setNombre(txtDesPro.getText());
+            pro.setProveedor(cbxProveedorPro.getSelectedItem().toString());
+            pro.setStock(Integer.parseInt(txtCantPro.getText()));
+            pro.setPrecio(Double.parseDouble(txtPrecioPro.getText()));
+            proDAO.RegistrarProductos(pro);
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Se ha guardado el producto. </h1></html>", "Guardar producto", JOptionPane.PLAIN_MESSAGE, ok);
+            LimpiarTable();
+            ListarProductos();
+            LimpiarProducto();
+        } else {
             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Hay campos vacios necesarios.</h1></html>", "Error al guardar producto", JOptionPane.PLAIN_MESSAGE, alert);
         }
     }//GEN-LAST:event_btnGuardarProActionPerformed
@@ -1802,9 +1828,9 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tableProductoMouseClicked
 
     private void btnEliminarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProActionPerformed
-        if (!"".equals(txtIdPro.getText())){
+        if (!"".equals(txtIdPro.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'>¿Esta seguro de eliminar este producto?</h1></html>", "Eliminar producto", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, question);
-            if (pregunta == 0){
+            if (pregunta == 0) {
                 int id = Integer.parseInt(txtIdPro.getText());
                 proDAO.EliminarProducto(id);
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El producto se ha eliminado.</h1></html>", "Eliminar producto", JOptionPane.PLAIN_MESSAGE, ok);
@@ -1822,11 +1848,11 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoProActionPerformed
 
     private void btnEditarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProActionPerformed
-        if ("".equals(txtIdPro.getText())){
-            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un producto.</h1></html>", "Error al actualizar producto",JOptionPane.PLAIN_MESSAGE, alert);
+        if ("".equals(txtIdPro.getText())) {
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un producto.</h1></html>", "Error al actualizar producto", JOptionPane.PLAIN_MESSAGE, alert);
         } else {
-            if (!"".equals(txtDesPro.getText()) && !"".equals(txtCodigoPro.getText()) 
-                    && !"".equals(cbxProveedorPro.getSelectedItem().toString()) && !"".equals(txtCantPro.getText()) 
+            if (!"".equals(txtDesPro.getText()) && !"".equals(txtCodigoPro.getText())
+                    && !"".equals(cbxProveedorPro.getSelectedItem().toString()) && !"".equals(txtCantPro.getText())
                     && !"".equals(txtPrecioPro.getText())) {
                 pro.setId(Integer.parseInt(txtIdPro.getText()));
                 pro.setCodigo(txtCodigoPro.getText());
@@ -1852,43 +1878,43 @@ public class Sistema extends javax.swing.JFrame {
 
     private void txtCodigoVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoVentaKeyPressed
         System.out.println(evt.getKeyCode());
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if (!"".equals(txtCodigoVenta.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!"".equals(txtCodigoVenta.getText())) {
                 String cod = txtCodigoVenta.getText();
                 pro = proDAO.BuscarPro(cod);
-                if ( pro.getNombre() != null){
-                    txtDescripcionVenta.setText(""+pro.getNombre());
-                    txtPrecioVenta.setText(""+pro.getPrecio());
-                    txtStockDisponible.setText(""+pro.getStock());
+                if (pro.getNombre() != null) {
+                    txtDescripcionVenta.setText("" + pro.getNombre());
+                    txtPrecioVenta.setText("" + pro.getPrecio());
+                    txtStockDisponible.setText("" + pro.getStock());
                     txtCantidadVenta.requestFocus();
                 } else {
                     limpiarVenta();
                     txtCodigoVenta.requestFocus();
-                    JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El codigo ingresado no existe. </h1></html>","Error de busqueda", JOptionPane.PLAIN_MESSAGE, error);
+                    JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El codigo ingresado no existe. </h1></html>", "Error de busqueda", JOptionPane.PLAIN_MESSAGE, error);
                 }
             } else {
                 txtCodigoVenta.requestFocus();
-                JOptionPane.showMessageDialog(this,"<html><h1 style='font-size:30px;color:#9d3be1'> Necesita ingresar un codigo. </h1></html>" ,"Error de busqueda", JOptionPane.PLAIN_MESSAGE, alert);
+                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Necesita ingresar un codigo. </h1></html>", "Error de busqueda", JOptionPane.PLAIN_MESSAGE, alert);
             }
-        } else if (evt.getKeyCode() == 17){
+        } else if (evt.getKeyCode() == 17) {
             txtRucVenta.requestFocus();
         }
     }//GEN-LAST:event_txtCodigoVentaKeyPressed
 
     private void txtCantidadVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadVentaKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if (!"".equals(txtCantidadVenta.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!"".equals(txtCantidadVenta.getText())) {
                 String cod = txtCodigoVenta.getText();
                 String descripcion = txtDescripcionVenta.getText();
                 int cant = Integer.parseInt(txtCantidadVenta.getText());
                 double precio = Double.parseDouble(txtPrecioVenta.getText());
                 double total = cant * precio;
                 int stock = Integer.parseInt(txtStockDisponible.getText());
-                if(stock >= cant){
+                if (stock >= cant) {
                     item = item + 1;
                     modelo2 = (DefaultTableModel) tableVenta.getModel();
                     for (int i = 0; i < tableVenta.getRowCount(); i++) {
-                        if (tableVenta.getValueAt(i, 1).equals(txtDescripcionVenta.getText())){
+                        if (tableVenta.getValueAt(i, 1).equals(txtDescripcionVenta.getText())) {
                             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El producto ya esta registrado </h1></html>", "Error al ingresar producto", JOptionPane.PLAIN_MESSAGE, alert);
                             return;
                         }
@@ -1919,59 +1945,59 @@ public class Sistema extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> El campo de cantidad esta vacio.</h1></html>", "Error al ingresar producto", JOptionPane.PLAIN_MESSAGE, alert);
             }
         }
-        
+
     }//GEN-LAST:event_txtCantidadVentaKeyPressed
 
     private void btnEliminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVentaActionPerformed
         int cant = tableVenta.getRowCount();
-        if(cant > 0){
+        if (cant > 0) {
             modelo = (DefaultTableModel) tableVenta.getModel();
             int row = tableVenta.getSelectedRow();
-            if(row != -1){
+            if (row != -1) {
                 modelo.removeRow(row);
                 totalPagar();
                 txtCodigoVenta.requestFocus();
             } else {
-                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un producto </h1></html>","Eliminar producto de la venta", JOptionPane.PLAIN_MESSAGE, alert);
+                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Seleccione un producto </h1></html>", "Eliminar producto de la venta", JOptionPane.PLAIN_MESSAGE, alert);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'>No hay productos en la venta.</h1></html>","Eliminar producto de la venta", JOptionPane.PLAIN_MESSAGE, alert);
+            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'>No hay productos en la venta.</h1></html>", "Eliminar producto de la venta", JOptionPane.PLAIN_MESSAGE, alert);
         }
     }//GEN-LAST:event_btnEliminarVentaActionPerformed
 
     private void txtRucVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucVentaKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(!"".equals(txtRucVenta.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!"".equals(txtRucVenta.getText())) {
                 Long dni = Long.parseLong(txtRucVenta.getText());
                 cl = client.buscarCliente(dni);
-                if(cl.getNombre() != null){
-                    txtNombreClienteVenta.setText(""+cl.getNombre());
-                    txtTelefonoCV.setText(""+cl.getTelefono());
-                    txtDireccionCV.setText(""+cl.getDireccion());
-                    txtRazonCV.setText(""+cl.getRazon());
-                }else{
+                if (cl.getNombre() != null) {
+                    txtNombreClienteVenta.setText("" + cl.getNombre());
+                    txtTelefonoCV.setText("" + cl.getTelefono());
+                    txtDireccionCV.setText("" + cl.getDireccion());
+                    txtRazonCV.setText("" + cl.getRazon());
+                } else {
                     txtRucVenta.setText("");
                     JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> No se ha encontrado el cliente</h1></html>", "Buscar cliente", JOptionPane.PLAIN_MESSAGE, error);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Ingrese un cliente </h1></html>","Error al buscar cliente",JOptionPane.PLAIN_MESSAGE, alert);
+                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Ingrese un cliente </h1></html>", "Error al buscar cliente", JOptionPane.PLAIN_MESSAGE, alert);
             }
-        } else if(evt.getKeyCode() == 17){
+        } else if (evt.getKeyCode() == 17) {
             btnGenerarVenta.requestFocus();
         }
     }//GEN-LAST:event_txtRucVentaKeyPressed
 
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
-        if(tableVenta.getRowCount()>0){
-            if(!"".equals(txtNombreClienteVenta.getText())){
-            registrarVenta();
-            registrarDetalle();
-            ActualizarStock();
-            pdf();
-            LimpiarNuevaVenta();
-            LimpiarClienteVenta();
-            JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Venta generada. </h1></html>", "Nueva venta", JOptionPane.PLAIN_MESSAGE, ok);
-            } else{
+        if (tableVenta.getRowCount() > 0) {
+            if (!"".equals(txtNombreClienteVenta.getText())) {
+                registrarVenta();
+                registrarDetalle();
+                ActualizarStock();
+                pdf();
+                LimpiarNuevaVenta();
+                LimpiarClienteVenta();
+                JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Venta generada. </h1></html>", "Nueva venta", JOptionPane.PLAIN_MESSAGE, ok);
+            } else {
                 JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'> Es necesario un cliente </h1></html>", "Nueva venta", JOptionPane.PLAIN_MESSAGE, alert);
             }
         } else {
@@ -2046,7 +2072,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreClienteKeyTyped
 
     private void txtDireccionClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionClienteKeyTyped
-        
+
     }//GEN-LAST:event_txtDireccionClienteKeyTyped
 
     private void txtRazonClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonClienteKeyTyped
@@ -2054,7 +2080,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRazonClienteKeyTyped
 
     private void txtDireccionProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionProveedorKeyTyped
-        
+
     }//GEN-LAST:event_txtDireccionProveedorKeyTyped
 
     private void txtNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProveedorKeyTyped
@@ -2078,7 +2104,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreConfigKeyTyped
 
     private void txtDireccionConfigKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionConfigKeyTyped
-        
+
     }//GEN-LAST:event_txtDireccionConfigKeyTyped
 
     private void txtRazonConfigKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonConfigKeyTyped
@@ -2086,11 +2112,11 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRazonConfigKeyTyped
 
     private void btnPdfVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfVentasActionPerformed
-        try{
+        try {
             int id = Integer.parseInt(txtIdVenta.getText());
-            File file = new File("src/main/java/pdf/venta"+id+".pdf");
+            File file = new File("src/main/java/pdf/venta" + id + ".pdf");
             Desktop.getDesktop().open(file);
-        } catch(IOException | NumberFormatException e){
+        } catch (IOException | NumberFormatException e) {
             System.out.println(e.toString());
         }
     }//GEN-LAST:event_btnPdfVentasActionPerformed
@@ -2101,13 +2127,18 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tableVentasMouseClicked
 
     private void btnGraphycActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphycActionPerformed
-        if(myDate.getDate() != null){
+        if (myDate.getDate() != null) {
             String fechaReport = new SimpleDateFormat("dd-MM-yyyy").format(myDate.getDate());
             Graphyc.Graficar(fechaReport);
         } else {
             JOptionPane.showMessageDialog(this, "<html><h1 style='font-size:30px;color:#9d3be1'>Seleccione una fecha.</h1></html>", "Reporte grafico.", JOptionPane.PLAIN_MESSAGE, alert);
         }
     }//GEN-LAST:event_btnGraphycActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        Register register = new Register();
+        register.setVisible(true);
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2166,6 +2197,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnPdfVentas;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProveedor;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnVentas;
     private javax.swing.JComboBox<String> cbxProveedorPro;
     private javax.swing.JLabel jLabel1;
@@ -2272,7 +2304,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionCliente.setText("");
         txtRazonCliente.setText("");
     }
-    
+
     private void LimpiarProveedor() {
         txtIdProveedor.setText("");
         txtRucProveedor.setText("");
@@ -2281,7 +2313,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDireccionProveedor.setText("");
         txtRazonProveedor.setText("");
     }
-    
+
     private void LimpiarProducto() {
         txtIdPro.setText("");
         txtCodigoPro.setText("");
@@ -2290,8 +2322,8 @@ public class Sistema extends javax.swing.JFrame {
         txtCantPro.setText("");
         txtPrecioPro.setText("");
     }
-    
-    private void totalPagar(){
+
+    private void totalPagar() {
         totalPagar = 0.00;
         int numFila = tableVenta.getRowCount();
         for (int i = 0; i < numFila; i++) {
@@ -2300,7 +2332,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         labelTotal.setText(String.format("%.2f", totalPagar));
     }
-    
+
     private void limpiarVenta() {
         txtCodigoVenta.setText("");
         txtDescripcionVenta.setText("");
@@ -2309,8 +2341,8 @@ public class Sistema extends javax.swing.JFrame {
         txtStockDisponible.setText("");
         txtIdVenta.setText("");
     }
-    
-    private void registrarVenta(){
+
+    private void registrarVenta() {
         String cliente = txtNombreClienteVenta.getText();
         String vendedor = labelVendedor.getText();
         Double monto = totalPagar;
@@ -2320,90 +2352,90 @@ public class Sistema extends javax.swing.JFrame {
         venta.setDate(fechaNow);
         ventaDao.RegistrarVenta(venta);
     }
-    
-    private void registrarDetalle(){
+
+    private void registrarDetalle() {
         int id = ventaDao.idVenta();
-        for (int i = 0 ; i < tableVenta.getRowCount() ; i++){
-             String cod = tableVenta.getValueAt(i, 0).toString();
-             int cant = Integer.parseInt(tableVenta.getValueAt(i, 2).toString());
-             double precio = Double.parseDouble(tableVenta.getValueAt(i, 3).toString());
-             detalle.setCod_pro(cod);
-             detalle.setCantidad(cant);
-             detalle.setPrecio(precio);
-             detalle.setId_venta(id);
-             ventaDao.RegistrarDetalle(detalle);
+        for (int i = 0; i < tableVenta.getRowCount(); i++) {
+            String cod = tableVenta.getValueAt(i, 0).toString();
+            int cant = Integer.parseInt(tableVenta.getValueAt(i, 2).toString());
+            double precio = Double.parseDouble(tableVenta.getValueAt(i, 3).toString());
+            detalle.setCod_pro(cod);
+            detalle.setCantidad(cant);
+            detalle.setPrecio(precio);
+            detalle.setId_venta(id);
+            ventaDao.RegistrarDetalle(detalle);
         }
     }
-    
-    private void ActualizarStock(){
-        for(int i = 0 ; i < tableVenta.getRowCount() ; i++){
+
+    private void ActualizarStock() {
+        for (int i = 0; i < tableVenta.getRowCount(); i++) {
             String codigo = tableVenta.getValueAt(i, 0).toString();
             int cant = Integer.parseInt(tableVenta.getValueAt(i, 2).toString());
             pro = proDAO.BuscarPro(codigo);
-            int stockActual = pro.getStock()-cant;
+            int stockActual = pro.getStock() - cant;
             ventaDao.ActualizarStock(stockActual, codigo);
         }
     }
-    
-    private void LimpiarNuevaVenta(){
+
+    private void LimpiarNuevaVenta() {
         modelo2 = (DefaultTableModel) tableVenta.getModel();
         int filas = tableVenta.getRowCount();
-        for(int i = 0 ; i < filas ; i++){
+        for (int i = 0; i < filas; i++) {
             modelo2.removeRow(0);
         }
     }
-    
-    private void LimpiarClienteVenta(){
+
+    private void LimpiarClienteVenta() {
         txtRucVenta.setText("");
         txtNombreClienteVenta.setText("");
         txtTelefonoCV.setText("");
         txtDireccionCV.setText("");
         txtRazonCV.setText("");
     }
-    
-    private void pdf(){
+
+    private void pdf() {
         try {
             int id = ventaDao.idVenta();
             FileOutputStream archivo;
-            File file = new File("src/main/java/pdf/venta"+id+".pdf");
+            File file = new File("src/main/java/pdf/venta" + id + ".pdf");
             archivo = new FileOutputStream(file);
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
             doc.open();
             Image img = Image.getInstance("src/main/resources/logo.png");
-            
+
             Paragraph fecha = new Paragraph();
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.PINK);
             fecha.add(Chunk.NEWLINE);
             Date date = new Date();
-            fecha.add("Factura #"+id+"\n"+"Fecha: "+ new SimpleDateFormat("dd-MM-yyyy").format(date)+"\n\n");
-            
+            fecha.add("Factura #" + id + "\n" + "Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+
             PdfPTable Encabezado = new PdfPTable(4);
             Encabezado.setWidthPercentage(100);
             Encabezado.getDefaultCell().setBorder(0);
             float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
             Encabezado.setWidths(ColumnaEncabezado);
             Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-            
+
             Encabezado.addCell(img);
-            
+
             String ruc = txtRucConfig.getText();
             String nom = txtNombreConfig.getText();
             String tel = txtTelefonoConfig.getText();
             String dir = txtDireccionConfig.getText();
             String ra = txtRazonConfig.getText();
-            
+
             Encabezado.addCell("");
             Encabezado.addCell("CC: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon social: " + ra);
             Encabezado.addCell(fecha);
-            
+
             doc.add(Encabezado);
-            
+
             Paragraph cliente = new Paragraph();
             cliente.add(Chunk.NEWLINE);
-            cliente.add("Datos del cliente: "+"\n\n");
+            cliente.add("Datos del cliente: " + "\n\n");
             doc.add(cliente);
-            
+
             PdfPTable tablaCli = new PdfPTable(4);
             tablaCli.setWidthPercentage(100);
             tablaCli.getDefaultCell().setBorder(0);
@@ -2412,8 +2444,8 @@ public class Sistema extends javax.swing.JFrame {
             tablaCli.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell cl1 = new PdfPCell(new Phrase("Documento", negrita));
             PdfPCell cl2 = new PdfPCell(new Phrase("Nombre", negrita));
-            PdfPCell cl3= new PdfPCell(new Phrase("Telefono", negrita));
-            PdfPCell cl4= new PdfPCell(new Phrase("Direccion", negrita));
+            PdfPCell cl3 = new PdfPCell(new Phrase("Telefono", negrita));
+            PdfPCell cl4 = new PdfPCell(new Phrase("Direccion", negrita));
             cl1.setBorder(0);
             cl2.setBorder(0);
             cl3.setBorder(0);
@@ -2426,14 +2458,14 @@ public class Sistema extends javax.swing.JFrame {
             tablaCli.addCell(txtNombreClienteVenta.getText());
             tablaCli.addCell(txtTelefonoCV.getText());
             tablaCli.addCell(txtDireccionCV.getText());
-            
+
             doc.add(tablaCli);
-            
+
             Paragraph producto = new Paragraph();
             producto.add(Chunk.NEWLINE);
-            producto.add("Datos de los productos: "+"\n\n");
+            producto.add("Datos de los productos: " + "\n\n");
             doc.add(producto);
-            
+
             PdfPTable tablaPro = new PdfPTable(4);
             tablaPro.setWidthPercentage(100);
             tablaPro.getDefaultCell().setBorder(0);
@@ -2442,8 +2474,8 @@ public class Sistema extends javax.swing.JFrame {
             tablaPro.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell pro1 = new PdfPCell(new Phrase("Cantidad", negrita));
             PdfPCell pro2 = new PdfPCell(new Phrase("Descripcion", negrita));
-            PdfPCell pro3= new PdfPCell(new Phrase("Precio Unitario.", negrita));
-            PdfPCell pro4= new PdfPCell(new Phrase("Precio Total", negrita));
+            PdfPCell pro3 = new PdfPCell(new Phrase("Precio Unitario.", negrita));
+            PdfPCell pro4 = new PdfPCell(new Phrase("Precio Total", negrita));
             pro1.setBorder(0);
             pro2.setBorder(0);
             pro3.setBorder(0);
@@ -2451,12 +2483,12 @@ public class Sistema extends javax.swing.JFrame {
             pro1.setBackgroundColor(BaseColor.DARK_GRAY);
             pro2.setBackgroundColor(BaseColor.DARK_GRAY);
             pro3.setBackgroundColor(BaseColor.DARK_GRAY);
-            pro4.setBackgroundColor(BaseColor.DARK_GRAY);  
+            pro4.setBackgroundColor(BaseColor.DARK_GRAY);
             tablaPro.addCell(pro1);
             tablaPro.addCell(pro2);
             tablaPro.addCell(pro3);
             tablaPro.addCell(pro4);
-            for (int i = 0 ; i < tableVenta.getRowCount() ; i++){
+            for (int i = 0; i < tableVenta.getRowCount(); i++) {
                 String cantidad = tableVenta.getValueAt(i, 2).toString();
                 String productoI = tableVenta.getValueAt(i, 1).toString();
                 String precio = tableVenta.getValueAt(i, 3).toString();
@@ -2466,41 +2498,40 @@ public class Sistema extends javax.swing.JFrame {
                 tablaPro.addCell(precio);
                 tablaPro.addCell(total);
             }
-            
+
             doc.add(tablaPro);
-            
+
             Paragraph info = new Paragraph();
             info.add(Chunk.NEWLINE);
-            info.add("Total a pagar: "+ totalPagar);
+            info.add("Total a pagar: " + totalPagar);
             info.setAlignment(Element.ALIGN_RIGHT);
             doc.add(info);
-            
+
             Paragraph firma = new Paragraph();
             firma.add(Chunk.NEWLINE);
             firma.add("Firma y cancelación\n\n");
             firma.add("______________________");
             firma.setAlignment(Element.ALIGN_CENTER);
             doc.add(firma);
-            
+
             Paragraph bottom = new Paragraph();
             bottom.add(Chunk.NEWLINE);
             bottom.add("Gracias por su compra");
             bottom.setAlignment(Element.ALIGN_CENTER);
             doc.add(bottom);
-            
+
             doc.close();
             archivo.close();
-            
+
             Desktop.getDesktop().open(file);
-            
+
         } catch (DocumentException | IOException e) {
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: " + e.toString());
         }
     }
 
     public ImageIcon getOk() {
         return ok;
     }
-    
-}
 
+}

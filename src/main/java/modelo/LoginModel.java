@@ -14,15 +14,25 @@ public class LoginModel {
     private String nombre;
     private String correo;
     private String pass;
+    private String rol;
 
     public LoginModel() {
     }
 
-    public LoginModel(Integer id, String nombre, String correo, String pass) {
+    public LoginModel(Integer id, String nombre, String correo, String pass, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.pass = pass;
+        this.rol = rol;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public Integer getId() {

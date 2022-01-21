@@ -34,10 +34,28 @@ public class LoginDAO {
                login.setNombre(rs.getString("nombre"));
                login.setCorreo(rs.getString("correo"));
                login.setPass(rs.getString("pass"));
+               login.setRol(rs.getString("rol"));
            }
        } catch (SQLException e) {
            System.out.println(e.toString());
        }
        return login;
+   }
+   
+   public Boolean registrar(LoginModel login){
+       String sql = "INSERT INTO usuario (nombre, correo, pass, rol) VALUES (?,?,?,?)";
+       try {
+           con = cn.getConnection();
+           ps = con.prepareStatement(sql);
+           ps.setString(1, login.getNombre());
+           ps.setString(2, login.getCorreo());
+           ps.setString(3, login.getPass());
+           ps.setString(4, login.getRol());
+           ps.execute();
+           return true;
+       } catch (SQLException e) {
+           System.out.println("Error: "+e.toString());
+           return false;
+       }
    }
 }
