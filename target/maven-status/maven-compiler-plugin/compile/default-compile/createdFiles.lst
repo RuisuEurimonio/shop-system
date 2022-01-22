@@ -1,6 +1,7 @@
 vista\Sistema$17.class
 vista\Sistema$27.class
 vista\Sistema$8.class
+vista\Register.class
 vista\Sistema$5.class
 vista\Sistema$21.class
 modelo\VentaDao.class
@@ -10,6 +11,7 @@ vista\Sistema$44.class
 vista\Sistema$64.class
 vista\Sistema$52.class
 vista\Sistema$2.class
+vista\Register$5.class
 vista\Sistema$67.class
 vista\Sistema$12.class
 vista\Sistema$47.class
@@ -29,7 +31,6 @@ vista\Sistema$49.class
 vista\Sistema$31.class
 vista\Sistema$41.class
 vista\Sistema$6.class
-.netbeans_automatic_build
 vista\Sistema$26.class
 vista\Sistema$7.class
 vista\Sistema$14.class
@@ -45,6 +46,7 @@ vista\Sistema$60.class
 vista\Sistema$63.class
 vista\Login$2.class
 vista\Sistema$50.class
+vista\Sistema$70.class
 vista\Sistema$40.class
 vista\Sistema$10.class
 vista\Sistema$43.class
@@ -58,9 +60,12 @@ vista\Sistema$1.class
 reportes\Excel.class
 vista\Login$5.class
 vista\Sistema$46.class
+vista\Register$4.class
 vista\Sistema$56.class
 vista\Sistema$36.class
 vista\Login.class
+vista\Runner.class
+vista\Register$1.class
 vista\Sistema$18.class
 vista\Sistema$59.class
 vista\Sistema$38.class
@@ -68,6 +73,7 @@ reportes\Graphyc.class
 modelo\Productos.class
 vista\Sistema$35.class
 vista\Sistema$45.class
+vista\Register$2.class
 vista\Sistema$58.class
 vista\Sistema$61.class
 vista\Sistema$68.class
@@ -83,7 +89,9 @@ modelo\ProveedorDAO.class
 vista\Login$1.class
 vista\Sistema$11.class
 modelo\Venta.class
+vista\Register$3.class
 vista\Sistema$28.class
+vista\Sistema$69.class
 vista\Sistema$34.class
 modelo\Events.class
 vista\Sistema$57.class
